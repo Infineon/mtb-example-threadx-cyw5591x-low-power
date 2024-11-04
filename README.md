@@ -4,7 +4,7 @@ This is low power application for CYW5591x devices. The application provides a s
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-threadx-cyw5591x-low-power)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIxLjAuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIxLjEuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
 
 ## Requirements
 
@@ -26,6 +26,10 @@ This is low power application for CYW5591x devices. The application provides a s
 ## Hardware setup
 
 This example requires rework to enable power mesurement on the Kit. Please refer to section 7.1: Hardware setup in [AN239828](https://www.infineon.com/an239828): AIROC(TM) CYW55913 Wi-Fi & Bluetooth&reg; connected MCU low-power system design for complete rework details and setup.
+
+## Software setup
+Install a terminal emulator if you don't have one. Instructions in this document use [Tera Term](https://teratermproject.github.io/index-en.html).
+
 
 
 ## Using the code example
@@ -167,8 +171,13 @@ For more details, see the [ModusToolbox&trade; tools package user guide](https:/
         - This option allows you to initialize the WLAN CR4 core, the wifi host driver (WHD) and wifi connection manager.
     * Press **'2'** to connect to an AP, Enter AP SSID and password when prompted.
         - This option allows you to connect to an access point. Once selected it will prompt you for the AP's SSID and password.
+        
+        ``````
+        Note: Make sure the terminal being used has New Line Transmit set to CR and not CR+LF as it is used identify the end of user input.
+        ``````
+
     * Press **'3'** to start iperf session
-        - This option start's an iperf server. This should only be used to simulate data traffic as it is not optimized to provide best throughput.
+        - This option start's an iperf server. This should only be used to simulate data traffic as it is not optimized to provide best throughput. Start a client on a different machine and connect to the server. `Note: This iperf utility is based on iperf2, Please use the same on the client`
     * Press **'4'** to initialize Bluetooth&reg;.
          - This will initialize the Bluetooth&reg; stack. Note: Bluetooth Initialization should be done before Wi-Fi initialization. If you plan to use both, please follow the recommended order Bluetooth&reg; Init -> Wi-FI Init.
     * Press **'5'** to start Bluetooth&reg; LE advertisements
@@ -261,6 +270,8 @@ Document title: *CE240060* – *CYW5591x Low Power*
  Version | Description of change
  ------- | ---------------------
  1.0.0   | New code example
+ 1.1.0   | bug fix
+
 
 <br>
 
