@@ -4,7 +4,7 @@ This is low power application for CYW5591x devices. The application provides a s
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-threadx-cyw5591x-low-power)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIxLjEuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIxLjIuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
 
 ## Requirements
 
@@ -271,6 +271,7 @@ Document title: *CE240060* – *CYW5591x Low Power*
  ------- | ---------------------
  1.0.0   | New code example
  1.1.0   | bug fix
+ 1.2.0   | Added support for flash low power
 
 
 <br>

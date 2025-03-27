@@ -43,6 +43,7 @@
 * Header Files
 *******************************************************************************/
 #include "WLANsrc/wifi_functions.h"
+#include "cy_pdl_wrapper.h"
 #include "cybsp.h"
 #include "cy_retarget_io.h"
 #include "cyabs_rtos.h"
@@ -411,6 +412,12 @@ void uart_task(cy_thread_arg_t arg)
                     printf("Scan started....\r\n");
                 }
                 break;
+            case 'f':
+                /*Toggle flash low Power Mode*/
+                ( btss_smif_flash_isPowerDownCmdAllowed() == BTSS_SYSTEM_FLASH_POWER_DOWN_CMD_ALLOW_BT_CONTROL)
+                    ? btss_smif_flash_allowPowerDownCmd(BTSS_SYSTEM_FLASH_POWER_DOWN_CMD_DISALLOW)
+                    : btss_smif_flash_allowPowerDownCmd(BTSS_SYSTEM_FLASH_POWER_DOWN_CMD_ALLOW_BT_CONTROL);
+                break;
             case 'h':
                 display_menu();
                 break;
@@ -449,6 +456,7 @@ void display_menu(void)
     printf("**7) Press '7' to allow sleep. \r\n");
     printf("**8) Press '8' to disconnect from the AP. \r\n");
     printf("**9) Press '9' any time in application to start scan. \r\n");
+    printf("*10) Press 'f' to toggle flash low power. \r\n");
     printf("*11) Press 'h' any time in application to print the menu. \r\n");
     printf("*****************************************************************************\r\n");
 }
