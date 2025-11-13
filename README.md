@@ -4,7 +4,7 @@ This is low power application for CYW5591x devices. The application provides a s
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-threadx-cyw5591x-low-power)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIxLjIuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDAwNjAiLCJTcGVjIE51bWJlciI6IjAwMi00MDA2MCIsIkRvYyBUaXRsZSI6IkNZVzU1OTF4IExvdyBwb3dlciIsInJpZCI6ImFtYWwgbWlzaHJhIiwiRG9jIHZlcnNpb24iOiIyLjAuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiV0lGSSJ9)
 
 ## Requirements
 
@@ -190,6 +190,15 @@ For more details, see the [ModusToolbox&trade; tools package user guide](https:/
         - This option is used to disconnect an existing connection to an AP.
     * Press **'9'** any time in application to start scan.
         - This option is used to scan for available AP's in the range.
+    * Press **'f'** any time in application to allow flash to be put in low power mode.
+        - This option is used to put flash in low power mode when the system is idle.
+    * Press **'p'** any time in application to allow psram to be put in low power mode.
+        - This option is used to put psram in low power mode when the system is idle.
+
+        ``````
+        Note: The psram is initialized only if the psram is used therefore its important to set APPEXEC=psram in the makefile to make code execute from psram before trying to toggle the psram low power
+        ``````
+
     * Press **'h'** any time in application to print the menu
         - This option is used to request the Start menu options to view the options availabe at any point in the program.
 
@@ -231,14 +240,26 @@ The menu explained in the [operation](#operation) section provides easy way to m
 Note: For cases where both Bluetooth and the Wi-Fi needs to be used make sure to initialise the Bluetooth first.
 ```
 ### Offloads:
-CYW55913 supports ARP, Packet filter and TCP keep alive offloads. The application by default enables ARP and packet filter offload (Ping discard filter) via a custom design.modus file present inside templates folder. To understand more about these offloads refer the companion Application Note and Low power assistant Documentation. In the case where ARP offload is enabled CM33 (Host) will not wake up for responding to ARP requests and the same can be observed on the power analyser. Sniffer can be used to monitor that ARP requests are getting honoured. Refer to [Low Power Assistant documentation](https://infineon.github.io/lpa/api_reference_manual/html/index.html) for detailed information about offloads including how to configure and test them.
+CYW55913 supports ARP, Packet filter, TCP keep alive offloads among many other offloads mentioned in the table below. The firmware by default enables quite a few of the offloads. To understand more about these offloads refer the companion Application Note and Low power assistant Documentation. Refer to [Low Power Assistant documentation](https://infineon.github.io/lpa/api_reference_manual/html/index.html) for detailed information about offloads.
 
-```
-Note: LPA on network suspension prints out this message : "Network Stack Suspended, MCU will enter Active power mode" . Please ignore the MCU state mentioned here.
-```
-```
-Note: TCP Keep alive although supported is not yet enabled in the CE, will be added in subsequent release.
-```
+**Table 3. Offloads supported in CYW5591x devices and their default state**
+
+| Feature                                 | Enabled by Default? | Can be Disabled/Enabled? | Additional Information                                                                 |
+|-----------------------------------------|---------------------|--------------------------|---------------------------------------------------------------------------------------|
+| ARP Offload                             | Yes                 | No                       | Enabled in both wake and sleep state                                                 |
+| ICMP Offload                            | Yes                 | No                       | Enabled in both wake and sleep state                                                 |
+| TCP Keepalive                           | Yes                 | No                       | Based on the TCP connection (only responder mode)                                    |
+| Packet Filter                           | No                  | Yes                      | Either a keep filter or a discard filter type can be used, using both causes unpredictable behavior |
+| MQTT Offload                            | No                  | Yes                      | Both MQTT and Wake on specific MQTT packet is supported                               |
+| Wake on Wireless LAN using Packet Filter (WOWL PF) | No        | Yes                      | Supports magic pattern and user-configured pattern                                    |
+| Neighbor Discovery Offload Engine (NDOE)| Yes                | No                       | For IPv6                                                                              |
+| DHCP Lease Time Renew Offload (DLTRO)   | Yes                 | No                       |                                                                                       |
+| NULL Keepalive                          | Yes                 | No                       | Interval is configurable (default 110 sec)                                           |
+| NAT Keepalive                           | No                  | Yes                      |                                                                                       |
+| Group Temporal Key Offload Engine (GTKOE)| Yes                | No                       |                                                                                       |
+
+
+
 ### System Power Manager (SysPM):
 SysPM Hardware abstraction Module allows the users to manage the entry and exit into low power modes. The application modules can register callback to SysPM to get information of different transition states and do any processing if required. The pm_callback function mentioned in Table 2 is one such example of the same. The SysPM module also provides sleep lock and unlock API's which when called will prevent the device from going to sleep.
 
@@ -272,6 +293,7 @@ Document title: *CE240060* – *CYW5591x Low Power*
  1.0.0   | New code example
  1.1.0   | bug fix
  1.2.0   | Added support for flash low power
+ 2.0.0   | Added support for psram low power
 
 
 <br>

@@ -76,7 +76,7 @@
 /* Security type of the Wi-Fi access point. See 'cy_wcm_security_t' structure
  * in "cy_wcm.h" for more details.
  */
-#define WIFI_SECURITY_TYPE  CY_WCM_SECURITY_WPA2_AES_PSK
+#define WIFI_SECURITY_TYPE  CY_WCM_SECURITY_WPA3_WPA2_PSK
 /* Maximum number of connection retries to a Wi-Fi network. */
 #define MAX_WIFI_CONN_RETRIES (10u)
 
@@ -95,8 +95,11 @@
 
 
 /*lpa defines*/
-#define NETWORK_INACTIVE_INTERVAL_MS      (6000)
-#define NETWORK_INACTIVE_WINDOW_MS      (5000)
+/*
+ * Safe delay to avoid race conditions when switching between
+ * offload enable and disable states when network stack is suspended
+ * and resumed by the offload manager.
+ */
 #define NETWORK_SUSPEND_DELAY_MS           (100)
 
 /* This macro specifies the interval in milliseconds that the device monitors
@@ -105,14 +108,14 @@
  * stack and informs the calling function that the MCU wait period timed out
  * while waiting for network to become inactive.
  */
-#define INACTIVE_INTERVAL_MS              300u
+#define NETWORK_INACTIVE_INTERVAL_MS              3000u
 
 /* This macro specifies the continuous duration in milliseconds for which the
  * network has to be inactive. If the network is inactive for this duaration,
  * the MCU will suspend the network stack. Now, the MCU will not need to service
  * the network timers which allows it to stay longer in sleep/deepsleep.
  */
-#define INACTIVE_WINDOW_MS                200u
+#define NETWORK_INACTIVE_WINDOW_MS                2000u
 
 /* This macro defines the power-save mode that the WLAN device has to be
  * configured to. The valid values for this macro are POWERSAVE_WITH_THROUGHPUT,

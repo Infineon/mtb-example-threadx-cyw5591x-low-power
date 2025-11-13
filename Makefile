@@ -143,6 +143,9 @@ PREBUILD=
 # Custom post-build commands to run.
 POSTBUILD=
 
+# Uncomment the below line for verifying the psram low power, the psram is initialized only if the psram is used
+# therefore its important to enable this before trying to toggle the psram low power
+#APPEXEC=psram
 
 ################################################################################
 # Paths

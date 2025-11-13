@@ -404,6 +404,11 @@ void network_idle_task(cy_thread_arg_t arg)
     while( true )
        {
            /* Suspend the network stack */
+           
+           /* CY_RTOS_NEVER_TIMEOUT basically tells the middleware to not resume the network stack unless there is some 
+           network activity. If a finite value is provided it will resume the network stack even if no network activity 
+           is ongoing, on the expiry of that timer */
+           
            wait_net_suspend(wifi,
                             CY_RTOS_NEVER_TIMEOUT,
                             NETWORK_INACTIVE_INTERVAL_MS,
